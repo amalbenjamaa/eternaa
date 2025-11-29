@@ -11,8 +11,8 @@ export default {
   },
   props: {
     productId: {
-      type: String,
-      required: true,
+      type: [String, Number],
+      default: null,
     },
   },
 };

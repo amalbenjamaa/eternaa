@@ -28,7 +28,7 @@
           <div class="product-image-wrapper">
             <img
                 :src="product.image"
-                :alt="product.name"
+                :alt="product.title"
                 class="product-image"
             />
             <div class="image-overlay">
@@ -38,7 +38,7 @@
 
           <!-- Product Info -->
           <div class="product-info">
-            <h3 class="product-title">{{ truncateTitle(product.name) }}</h3>
+            <h3 class="product-title">{{ truncateTitle(product.title) }}</h3>
             <div class="product-price-section">
               <p class="product-price">{{ product.price }} DT</p>
               <button
@@ -72,7 +72,6 @@ export default {
     }
   },
   created() {
-    console.log(this.products);
     this.syncFavoritesFromStore();
   },
   methods: {
@@ -87,6 +86,7 @@ export default {
     },
 
     truncateTitle(title, length = 45) {
+      if (!title) return '';
       return title.length > length ? title.substring(0, length) + '...' : title;
     }
   },

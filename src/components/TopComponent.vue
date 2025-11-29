@@ -32,25 +32,25 @@
         <h1 class="product-title">{{ product.title }}</h1>
 
         <!-- Rating -->
-        <div class="rating-section">
+        <div v-if="product.rating" class="rating-section">
           <div class="stars">
             <span
                 v-for="n in 5"
                 :key="n"
                 class="star"
-                :class="{ filled: n <= Math.round(product.rating.rate) }"
+                :class="{ filled: n <= Math.round(product.rating.rate || 0) }"
             >★</span>
           </div>
           <span class="rating-text">
-            {{ product.rating.rate }} out of 5 ({{ product.rating.count }} reviews)
+            {{ product.rating.rate || 0 }} out of 5 ({{ product.rating.count || 0 }} reviews)
           </span>
         </div>
 
         <div class="price-section">
-          <span class="price">${{ product.price.toFixed(2) }}</span>
+          <span class="price">${{ (product.price || 0).toFixed(2) }}</span>
         </div>
 
-        <p class="product-description">{{ product.description }}</p>
+        <p class="product-description">{{ product.description || 'No description available.' }}</p>
 
         <div class="category-tag">
           {{ formatCategory(product.category) }}
@@ -99,11 +99,17 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapMutations } from 'vuex';
+import ProductService from '@/services/productService';
 
 export default {
   name: 'ProductDetail',
+  props: {
+    productId: {
+      type: [String, Number],
+      default: null
+    }
+  },
   data() {
     return {
       product: null,
@@ -120,14 +126,21 @@ export default {
       this.error = null;
 
       try {
-        const response = await axios.get(
-            `https://fakestoreapi.com/products/${this.$route.params.id}`
-        );
-        this.product = { ...response.data, isFavorite: false };
+        // Use prop if provided, otherwise use route param
+        const productId = this.productId || this.$route.params.id;
+        if (!productId) {
+          throw new Error('Product ID is missing');
+        }
+        const response = await ProductService.getProductById(productId);
+        if (!response || !response.id) {
+          throw new Error('Product not found');
+        }
+        this.product = { ...response, isFavorite: false };
         this.checkIfFavorite();
       } catch (err) {
         this.error = "Sorry, we couldn't find this product.";
         console.error('Error fetching product:', err);
+        console.error('Product ID:', this.productId || this.$route.params.id);
       } finally {
         this.loading = false;
       }
@@ -164,6 +177,9 @@ export default {
 
   watch: {
     '$route.params.id'() {
+      this.fetchProduct();
+    },
+    productId() {
       this.fetchProduct();
     }
   }

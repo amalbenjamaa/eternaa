@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import CategoryPage from '@/components/CategoryComponent.vue';
+import ProductService from '@/services/productService';
 
 export default {
   name: 'JewelleryView',
@@ -44,20 +44,12 @@ export default {
       this.error = null;
 
       try {
-        const response = await axios.get(
-            "https://fakestoreapi.com/products/category/jewelery"
-        );
+        const response = await ProductService.getProductsByCategory('Jewellery');
 
-        this.clothes = response.data.map(item => ({
-          id: item.id,
-          name: item.title,
-          price: item.price,
-          image: item.image,
+        this.clothes = response.map(item => ({
+          ...item,
           isFavorite: false
         }));
-
-        this.$forceUpdate();
-
       } catch (err) {
         console.error("API Error:", err);
         this.error = "Failed to load clothes. Please check your internet connection.";

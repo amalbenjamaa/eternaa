@@ -146,7 +146,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group form-group-full">
             <label for="description">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -465,6 +465,10 @@ export default {
   margin-bottom: 1.5rem;
 }
 
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
 .form-group label {
   display: flex;
   align-items: center;
@@ -490,6 +494,7 @@ export default {
   transition: all 0.3s ease;
   font-family: inherit;
   background: #f9fafb;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -554,6 +559,11 @@ textarea {
 
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-group-full {
+    grid-column: 1;
   }
 
   .feedback-form {

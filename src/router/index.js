@@ -4,7 +4,7 @@ import ProduitView from "@/views/ProduitView.vue";
 import FeedbackView from "@/views/FeedbackView.vue";
 import ClothesView from "@/views/ClothesView.vue";
 import JewelleryView from "@/views/JewelleryView.vue";
-import PotteryView from "@/views/PotteryView.vue";
+import ShoesView from "@/views/ShoesView.vue";
 import TopView from "@/views/TopView.vue";
 import CartView from "@/views/CartView.vue";
 import FavoritesView from "@/views/FavoritesView.vue";
@@ -37,8 +37,8 @@ const routes = [
   },
   {
     path: "/shoes",
-    name: "Pottery",
-    component: PotteryView,
+    name: "Shoes",
+    component: ShoesView,
   },
   {
     path: "/top/:id",

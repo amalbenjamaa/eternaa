@@ -3,26 +3,17 @@
     <!-- Hero Banner -->
     <header class="hero-section">
       <div class="banner">
-        <img src="../assets/boutique3.jpg" alt="Eterna Collection" />
+        <img src="/assets/boutique3.jpg" alt="Eterna Collection" />
         <div class="overlay">
           <div class="hero-content">
             <img
                 class="overlay-logo"
-                src="../assets/eterna-high-resolution-logo-transparent (1).png"
+                src="/assets/eterna-high-resolution-logo-transparent (1).png"
                 alt="Eterna Logo"
                 @click="showVideo"
             />
             <h1 class="hero-title">Timeless Elegance</h1>
             <p class="hero-subtitle">Designs that transcend every season</p>
-            <router-link to="/produit" class="cta-link">
-              <button class="cta-button">
-                <span>Explore Collection</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </button>
-            </router-link>
           </div>
           <div class="scroll-indicator">
             <span>Scroll to discover</span>
@@ -46,7 +37,7 @@
             v-for="category in categories"
             :key="category.name"
         >
-          <router-link :to="`/${category.name}`" class="category-link">
+          <router-link :to="category.route" class="category-link">
             <div class="category-image-wrapper">
               <img :src="category.image" :alt="category.name" />
               <div class="category-overlay">
@@ -115,7 +106,7 @@
       <div class="about-container">
         <div class="about-image-wrapper">
           <img
-              src="../assets/boutique3.jpg"
+              src="/assets/boutique3.jpg"
               alt="Eterna Display"
               class="about-image"
           />
@@ -162,7 +153,7 @@
             </svg>
           </button>
           <video controls autoplay>
-            <source src="../assets/video/channel.mp4" type="video/mp4" />
+            <source src="/assets/video/channel.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -178,18 +169,21 @@ export default {
       categories: [
         {
           name: "Clothes",
-          image: require("../assets/image vetements/mannequin8.jpg"),
-          description: "Timeless fashion pieces"
+          image: "/assets/image vetements/mannequin8.jpg",
+          description: "Timeless fashion pieces",
+          route: "/clothes"
         },
         {
           name: "Shoes",
-          image: require("../assets/image pottery/shoes8.jpg"),
-          description: "Step in style"
+          image: "/assets/image shoes/shoes8.jpg",
+          description: "Step in style",
+          route: "/shoes"
         },
         {
           name: "Accessories",
-          image: require("../assets/image bijoux/accessoir4.jpg"),
-          description: "Complete your look"
+          image: "/assets/image bijoux/accessoir4.jpg",
+          description: "Complete your look",
+          route: "/accessories"
         },
       ],
       isVideoVisible: false,
@@ -234,6 +228,20 @@ export default {
   overflow: hidden;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  overflow: visible;
+}
+
 .banner img {
   width: 100%;
   height: 100%;
@@ -259,13 +267,6 @@ export default {
   background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));  /* ✅ MODIFIÉ - Overlay plus sombre */
 }
 
-.hero-content {
-  text-align: center;
-  color: white;
-  z-index: 2;
-  animation: fadeInUp 1s ease;
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -277,26 +278,37 @@ export default {
   }
 }
 
+.hero-content {
+  text-align: center;
+  color: white;
+  z-index: 10;
+  animation: fadeInUp 1s ease;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .overlay-logo {
-  width: 180px;
-  margin-bottom: 2rem;
+  width: 250px;
+  max-width: 65vw;
+  height: auto;
+  margin-bottom: 1rem;
   cursor: pointer;
   transition: transform 0.3s ease;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
   position: relative;
-  z-index: 10;  /* ✅ AJOUTÉ - Met le logo au-dessus */
+  z-index: 9;
+  object-fit: contain;
 }
 
 .overlay-logo:hover {
-  transform: scale(1.1);
-}
-
-.hero-content {
-  text-align: center;
-  color: white;
-  z-index: 10;  /* ✅ MODIFIÉ - Était z-index: 2 */
-  animation: fadeInUp 1s ease;
-  position: relative;  /* ✅ AJOUTÉ */
+  transform: scale(1.05);
 }  
 
 .hero-title {
@@ -306,7 +318,11 @@ export default {
   letter-spacing: -1px;
   text-shadow: 0 2px 20px rgba(0,0,0,0.5);
   position: relative;
-  z-index: 10;  /* ✅ AJOUTÉ */
+  z-index: 11;
+  margin-top: 0;
+  width: 100%;
+  opacity: 1;
+  visibility: visible;
 }
 
 .hero-subtitle {
@@ -314,9 +330,10 @@ export default {
   margin-bottom: 2.5rem;
   font-weight: 300;
   letter-spacing: 1px;
-  opacity: 0.95;
+  opacity: 1;
+  visibility: visible;
   position: relative;
-  z-index: 10;  /* ✅ AJOUTÉ */
+  z-index: 10;
 }
 
 .cta-link {
@@ -782,8 +799,19 @@ export default {
   }
 
   .overlay-logo {
-    width:140px;
-   
+    width: 220px;
+    max-width: 70vw;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    margin-top: 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
   }
 
   .cta-button {

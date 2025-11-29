@@ -9,7 +9,7 @@
       <nav class="navbar">
         <!-- 1. Logo Section -->
         <router-link to="/" class="logo-link">
-          <img src="../assets/eterna-high-resolution-logo-transparent (1).png" alt="Eterna Logo" class="logo-img" />
+          <img src="/assets/eterna-high-resolution-logo-transparent (1).png" alt="Eterna Logo" class="logo-img" />
         </router-link>
 
         <!-- 2. Desktop Navigation Links (Hidden on Mobile) -->

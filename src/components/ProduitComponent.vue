@@ -220,7 +220,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import ProductService from "@/services/productService";
 
 export default {
@@ -237,7 +236,7 @@ export default {
       selectedCategory: null,
       priceRange: {
         min: 0,
-        max: 1000
+        max: 1000 // Will be updated dynamically when products load
       },
       minRating: 0,
       sortBy: 'default',
@@ -260,15 +259,16 @@ export default {
 
       // Rating filter
       if (this.minRating > 0) {
-        filtered = filtered.filter(p => p.rating.rate >= this.minRating);
+        filtered = filtered.filter(p => p.rating && p.rating.rate >= this.minRating);
       }
 
       // Search filter
       if (this.searchQuery) {
         const query = this.searchQuery.toLowerCase();
         filtered = filtered.filter(p =>
-            p.title.toLowerCase().includes(query) ||
-            p.category.toLowerCase().includes(query)
+            (p.title && p.title.toLowerCase().includes(query)) ||
+            (p.category && p.category.toLowerCase().includes(query)) ||
+            (p.description && p.description.toLowerCase().includes(query))
         );
       }
 
@@ -281,16 +281,24 @@ export default {
       return this.products.length;
     },
     hasActiveFilters() {
+      const maxPrice = this.products.length > 0 
+        ? Math.ceil(Math.max(...this.products.map(p => p.price || 0)) * 1.1)
+        : 1000;
       return this.selectedCategory !== null ||
           this.priceRange.min > 0 ||
-          this.priceRange.max < 1000 ||
-          this.minRating > 0;
+          this.priceRange.max < maxPrice ||
+          this.minRating > 0 ||
+          this.searchQuery !== "";
     },
     activeFiltersCount() {
       let count = 0;
       if (this.selectedCategory) count++;
-      if (this.priceRange.min > 0 || this.priceRange.max < 1000) count++;
+      const maxPrice = this.products.length > 0 
+        ? Math.ceil(Math.max(...this.products.map(p => p.price || 0)) * 1.1)
+        : 1000;
+      if (this.priceRange.min > 0 || this.priceRange.max < maxPrice) count++;
       if (this.minRating > 0) count++;
+      if (this.searchQuery) count++;
       return count;
     }
   },
@@ -301,30 +309,43 @@ export default {
         this.searchQuery = newSearch || "";
       },
     },
+    products: {
+      handler() {
+        // Update categories when products change
+        this.fetchCategories();
+      },
+      immediate: true
+    }
   },
   methods: {
-    async fetchProducts() {
-      this.loading = true;
-      this.error = null;
+   async fetchProducts() {
+    this.loading = true;
+    this.error = null;
 
-      try {
-        const response = await ProductService.getAllProducts();
-        this.products = response.map(product => ({
-          ...product,
-          isFavorite: false
-        }));
-      } catch (err) {
-        this.error = 'Failed to load products. Please try again later.';
-        console.error('Error fetching products:', err);
-      } finally {
-        this.loading = false;
+    try {
+      const response = await ProductService.getAllProducts();
+      this.products = response.map(product => ({
+        ...product,
+        isFavorite: false
+      }));
+      // Calculate max price dynamically
+      if (this.products.length > 0) {
+        const maxPrice = Math.max(...this.products.map(p => p.price || 0));
+        this.priceRange.max = Math.ceil(maxPrice * 1.1); // Add 10% margin
       }
-    },
+    } catch (err) {
+      this.error = 'Failed to load products. Please try again later.';
+      console.error('Error fetching products:', err);
+    } finally {
+      this.loading = false;
+    }
+  },
 
     async fetchCategories() {
       try {
-        const response = await axios.get('https://fakestoreapi.com/products/categories');
-        this.categories = response.data;
+        // Extract unique categories from products
+        const uniqueCategories = [...new Set(this.products.map(p => p.category).filter(Boolean))];
+        this.categories = uniqueCategories.sort();
       } catch (err) {
         console.error('Error fetching categories:', err);
       }
@@ -339,7 +360,11 @@ export default {
         case 'price-desc':
           return sorted.sort((a, b) => b.price - a.price);
         case 'rating-desc':
-          return sorted.sort((a, b) => b.rating.rate - a.rating.rate);
+          return sorted.sort((a, b) => {
+            const ratingA = a.rating && a.rating.rate ? a.rating.rate : 0;
+            const ratingB = b.rating && b.rating.rate ? b.rating.rate : 0;
+            return ratingB - ratingA;
+          });
         case 'name-asc':
           return sorted.sort((a, b) => a.title.localeCompare(b.title));
         default:
@@ -373,13 +398,20 @@ export default {
 
     clearAllFilters() {
       this.selectedCategory = null;
-      this.priceRange = { min: 0, max: 1000 };
+      const maxPrice = this.products.length > 0 
+        ? Math.ceil(Math.max(...this.products.map(p => p.price || 0)) * 1.1)
+        : 1000;
+      this.priceRange = { min: 0, max: maxPrice };
       this.minRating = 0;
       this.sortBy = 'default';
+      this.searchQuery = "";
     },
 
     resetPriceRange() {
-      this.priceRange = { min: 0, max: 1000 };
+      const maxPrice = this.products.length > 0 
+        ? Math.ceil(Math.max(...this.products.map(p => p.price || 0)) * 1.1)
+        : 1000;
+      this.priceRange = { min: 0, max: maxPrice };
     }
   },
 
@@ -572,21 +604,27 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .price-inputs {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .price-input {
   flex: 1;
+  min-width: 0;
   padding: 0.6rem;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
   font-size: 0.9rem;
   transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 
 .price-input:focus {
@@ -603,6 +641,8 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .slider {

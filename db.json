@@ -1,0 +1,251 @@
+{
+  "products": [
+    {
+      "id": 9,
+      "title": "shoes",
+      "price": 98,
+      "description": "Beautiful handmade shoes with premium quality materials.",
+      "category": "Shoes",
+      "image": "/assets/image shoes/shoes6.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 10,
+      "title": "shoes ",
+      "price": 98,
+      "description": "Beautiful handmade shoes with premium quality materials.",
+      "category": "Shoes",
+      "image": "/assets/image shoes/shoes7.jpg",
+      "isFavorite": true,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 11,
+      "title": "shoes",
+      "price": 98,
+      "description": "Beautiful handmade shoes with premium quality materials.",
+      "category": "Shoes",
+      "image": "/assets/image shoes/shoes8.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 12,
+      "title": "shoes ",
+      "price": 98,
+      "description": "Beautiful handmade shoes with premium quality materials.",
+      "category": "Shoes",
+      "image": "/assets/image shoes/shoes9.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 13,
+      "title": "bag",
+      "price": 98,
+      "description": "Elegant bag perfect for everyday use.",
+      "category": "Jewellery",
+      "image": "/assets/image bijoux/sac1.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 14,
+      "title": "bag",
+      "price": 98,
+      "description": "Elegant bag perfect for everyday use.",
+      "category": "Jewellery",
+      "image": "/assets/image bijoux/sac2.jpg",
+      "isFavorite": true,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 15,
+      "title": "bag",
+      "price": 98,
+      "description": "Elegant bag perfect for everyday use.",
+      "category": "Jewellery",
+      "image": "/assets/image bijoux/sac3.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 16,
+      "title": "Bangles",
+      "price": 98,
+      "description": "Stylish bangles to complete your look.",
+      "category": "Jewellery",
+      "image": "/assets/image bijoux/accessoir2.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 17,
+      "title": "Bangles",
+      "price": 98,
+      "description": "Stylish bangles to complete your look.",
+      "category": "Jewellery",
+      "image": "/assets/image bijoux/accessoir1.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 18,
+      "title": "Bangles",
+      "price": 98,
+      "description": "Stylish bangles to complete your look.",
+      "category": "Jewellery",
+      "image": "/assets/image bijoux/accessoir2.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 19,
+      "title": "Bangles",
+      "price": 98,
+      "description": "Stylish bangles to complete your look.",
+      "category": "Jewellery",
+      "image": "/assets/image bijoux/accessoir3.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 1,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin12.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 2,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin6.jpg",
+      "isFavorite": true,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 3,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin10.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 4,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin9.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 5,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin16.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 6,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin14.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 7,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin3.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    },
+    {
+      "id": 8,
+      "title": "TOP",
+      "category": "Clothes",
+      "price": 98,
+      "description": "Stylish top perfect for any occasion.",
+      "image": "/assets/image vetements/mannequin4.jpg",
+      "isFavorite": false,
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      }
+    }
+  ]
+}

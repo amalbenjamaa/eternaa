@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://fakestoreapi.com';
+const API_BASE_URL = 'https://my-json-server.typicode.com/amalbenjamaa/eternaa';
 
 class ProductService {
     // Get all products
@@ -17,7 +17,12 @@ class ProductService {
     // Get single product by ID
     async getProductById(id) {
         try {
-            const response = await axios.get(`${API_BASE_URL}/products/${id}`);
+            // Ensure ID is a number for JSON Server
+            const productId = parseInt(id, 10);
+            if (isNaN(productId)) {
+                throw new Error(`Invalid product ID: ${id}`);
+            }
+            const response = await axios.get(`${API_BASE_URL}/products/${productId}`);
             return response.data;
         } catch (error) {
             console.error(`Error fetching product ${id}:`, error);
@@ -28,7 +33,7 @@ class ProductService {
     // Get products by category
     async getProductsByCategory(category) {
         try {
-            const response = await axios.get(`${API_BASE_URL}/products/category/${category}`);
+            const response = await axios.get(`${API_BASE_URL}/products?category=${encodeURIComponent(category)}`);
             return response.data;
         } catch (error) {
             console.error(`Error fetching products in category ${category}:`, error);
@@ -39,7 +44,7 @@ class ProductService {
     // Get all categories
     async getCategories() {
         try {
-            const response = await axios.get(`${API_BASE_URL}/products/categories`);
+            const response = await axios.get(`${API_BASE_URL}/categories`);
             return response.data;
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -50,7 +55,7 @@ class ProductService {
     // Get limited products (for pagination)
     async getLimitedProducts(limit = 10) {
         try {
-            const response = await axios.get(`${API_BASE_URL}/products?limit=${limit}`);
+            const response = await axios.get(`${API_BASE_URL}/products?_limit=${limit}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching limited products:', error);
@@ -61,7 +66,7 @@ class ProductService {
     // Sort products
     async getSortedProducts(sortType = 'asc') {
         try {
-            const response = await axios.get(`${API_BASE_URL}/products?sort=${sortType}`);
+            const response = await axios.get(`${API_BASE_URL}/products?_sort=price&_order=${sortType}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching sorted products:', error);
