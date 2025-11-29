@@ -9,7 +9,7 @@
       <nav class="navbar">
         <!-- 1. Logo Section -->
         <router-link to="/" class="logo-link">
-          <img src="/assets/eterna-high-resolution-logo-transparent (1).png" alt="Eterna Logo" class="logo-img" />
+          <img :src="getImagePath('/assets/eterna-high-resolution-logo-transparent (1).png')" alt="Eterna Logo" class="logo-img" />
         </router-link>
 
         <!-- 2. Desktop Navigation Links (Hidden on Mobile) -->
@@ -107,6 +107,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { getImagePath } from '@/utils/imageHelper';
 
 export default {
   name: "HeaderBar",
@@ -127,6 +128,7 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
+    getImagePath,
     toggleMenu() {
       this.menuActive = !this.menuActive;
     },
