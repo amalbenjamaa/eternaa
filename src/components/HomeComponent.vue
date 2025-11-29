@@ -3,12 +3,12 @@
     <!-- Hero Banner -->
     <header class="hero-section">
       <div class="banner">
-        <img src="/assets/boutique3.jpg" alt="Eterna Collection" />
+        <img :src="getImagePath('/assets/boutique3.jpg')" alt="Eterna Collection" />
         <div class="overlay">
           <div class="hero-content">
             <img
                 class="overlay-logo"
-                src="/assets/eterna-high-resolution-logo-transparent (1).png"
+                :src="getImagePath('/assets/eterna-high-resolution-logo-transparent (1).png')"
                 alt="Eterna Logo"
                 @click="showVideo"
             />
@@ -106,7 +106,7 @@
       <div class="about-container">
         <div class="about-image-wrapper">
           <img
-              src="/assets/boutique3.jpg"
+              :src="getImagePath('/assets/boutique3.jpg')"
               alt="Eterna Display"
               class="about-image"
           />
@@ -163,33 +163,40 @@
 </template>
 
 <script>
+import { getImagePath } from '@/utils/imageHelper';
+
 export default {
   data() {
     return {
-      categories: [
+      isVideoVisible: false,
+    };
+  },
+  computed: {
+    categories() {
+      return [
         {
           name: "Clothes",
-          image: "/assets/image vetements/mannequin8.jpg",
+          image: getImagePath("/assets/image vetements/mannequin8.jpg"),
           description: "Timeless fashion pieces",
           route: "/clothes"
         },
         {
           name: "Shoes",
-          image: "/assets/image shoes/shoes8.jpg",
+          image: getImagePath("/assets/image shoes/shoes8.jpg"),
           description: "Step in style",
           route: "/shoes"
         },
         {
           name: "Accessories",
-          image: "/assets/image bijoux/accessoir4.jpg",
+          image: getImagePath("/assets/image bijoux/accessoir4.jpg"),
           description: "Complete your look",
           route: "/accessories"
         },
-      ],
-      isVideoVisible: false,
-    };
+      ];
+    }
   },
   methods: {
+    getImagePath,
     showVideo() {
       this.isVideoVisible = true;
     },

@@ -27,7 +27,7 @@
           <!-- Image Wrapper -->
           <div class="product-image-wrapper">
             <img
-                :src="product.image"
+                :src="getImagePath(product.image)"
                 :alt="product.title"
                 class="product-image"
             />
@@ -57,6 +57,7 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import { getImagePath } from '@/utils/imageHelper';
 
 export default {
   name: 'CategoryPage',
@@ -88,7 +89,8 @@ export default {
     truncateTitle(title, length = 45) {
       if (!title) return '';
       return title.length > length ? title.substring(0, length) + '...' : title;
-    }
+    },
+    getImagePath
   },
   watch: {
     '$store.state.favorites': {

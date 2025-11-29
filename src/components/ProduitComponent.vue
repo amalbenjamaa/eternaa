@@ -173,7 +173,7 @@
 
             <!-- Product Image -->
             <div class="product-image-wrapper">
-              <img :src="product.image" :alt="product.title" class="product-image" />
+              <img :src="getImagePath(product.image)" :alt="product.title" class="product-image" />
               <div class="image-overlay">
                 <router-link :to="{ name: 'TOP', params: { id: product.id } }" class="quick-view-btn">
                   Quick View
@@ -221,6 +221,7 @@
 
 <script>
 import ProductService from "@/services/productService";
+import { getImagePath } from "@/utils/imageHelper";
 
 export default {
   name: "ProductView",
@@ -318,6 +319,7 @@ export default {
     }
   },
   methods: {
+    getImagePath,
    async fetchProducts() {
     this.loading = true;
     this.error = null;

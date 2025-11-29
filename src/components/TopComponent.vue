@@ -18,7 +18,7 @@
     <div v-else-if="product" class="product-detail-container">
       <div class="product-images">
         <div class="main-image-wrapper">
-          <img :src="product.image" :alt="product.title" class="main-image" />
+          <img :src="getImagePath(product.image)" :alt="product.title" class="main-image" />
         </div>
       </div>
 
@@ -101,6 +101,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import ProductService from '@/services/productService';
+import { getImagePath } from '@/utils/imageHelper';
 
 export default {
   name: 'ProductDetail',
@@ -120,6 +121,7 @@ export default {
   },
   methods: {
     ...mapMutations(['addToCart', 'toggleFavorite']),
+    getImagePath,
 
     async fetchProduct() {
       this.loading = true;
