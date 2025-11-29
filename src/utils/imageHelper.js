@@ -10,18 +10,30 @@ export function getImagePath(imagePath) {
     return imagePath;
   }
   
-  // Get the base URL from environment (includes publicPath in production)
-  const baseUrl = process.env.BASE_URL || '/';
+  // Detect if we're on GitHub Pages by checking the pathname
+  // GitHub Pages URL format: https://username.github.io/repository-name/
+  const isGitHubPages = window.location.hostname.includes('github.io');
   
-  // If image path already starts with the base URL, return as is
-  if (imagePath.startsWith(baseUrl)) {
-    return imagePath;
+  if (isGitHubPages) {
+    // Extract repository name from pathname
+    // pathname will be like "/eternaa/" or "/eternaa/products"
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const repoName = pathParts[0] || 'eternaa';
+    const baseUrl = `/${repoName}/`;
+    
+    // If image path already starts with the base URL, return as is
+    if (imagePath.startsWith(baseUrl)) {
+      return imagePath;
+    }
+    
+    // Remove leading slash from imagePath if present
+    const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
+    
+    // Combine baseUrl and imagePath
+    return `${baseUrl}${cleanPath}`;
   }
   
-  // Remove leading slash from imagePath if present
-  const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
-  
-  // Combine baseUrl and imagePath
-  return `${baseUrl}${cleanPath}`;
+  // For local development, return path as is
+  return imagePath;
 }
 
