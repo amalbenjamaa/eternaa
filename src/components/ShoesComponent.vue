@@ -336,7 +336,6 @@ export default {
         }));
       } catch (err) {
         this.error = 'Failed to load products. Please try again later.';
-        console.error('Error fetching products:', err);
       } finally {
         this.loading = false;
       }
@@ -348,7 +347,7 @@ export default {
         const uniqueCategories = [...new Set(this.displayProducts.map(p => p.category).filter(Boolean))];
         this.categories = uniqueCategories.sort();
       } catch (err) {
-        console.error('Error fetching categories:', err);
+        // Error handled silently
       }
     },
 

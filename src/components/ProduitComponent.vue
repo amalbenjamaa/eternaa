@@ -335,7 +335,6 @@ export default {
       }
     } catch (err) {
       this.error = 'Failed to load products. Please try again later.';
-      console.error('Error fetching products:', err);
     } finally {
       this.loading = false;
     }

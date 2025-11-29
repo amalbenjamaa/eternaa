@@ -139,8 +139,6 @@ export default {
         this.checkIfFavorite();
       } catch (err) {
         this.error = "Sorry, we couldn't find this product.";
-        console.error('Error fetching product:', err);
-        console.error('Product ID:', this.productId || this.$route.params.id);
       } finally {
         this.loading = false;
       }

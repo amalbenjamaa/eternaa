@@ -9,7 +9,6 @@ class ProductService {
             const response = await axios.get(`${API_BASE_URL}/products`);
             return response.data;
         } catch (error) {
-            console.error('Error fetching products:', error);
             throw error;
         }
     }
@@ -25,7 +24,6 @@ class ProductService {
             const response = await axios.get(`${API_BASE_URL}/products/${productId}`);
             return response.data;
         } catch (error) {
-            console.error(`Error fetching product ${id}:`, error);
             throw error;
         }
     }
@@ -36,7 +34,6 @@ class ProductService {
             const response = await axios.get(`${API_BASE_URL}/products?category=${encodeURIComponent(category)}`);
             return response.data;
         } catch (error) {
-            console.error(`Error fetching products in category ${category}:`, error);
             throw error;
         }
     }
@@ -47,7 +44,6 @@ class ProductService {
             const response = await axios.get(`${API_BASE_URL}/categories`);
             return response.data;
         } catch (error) {
-            console.error('Error fetching categories:', error);
             throw error;
         }
     }
@@ -58,7 +54,6 @@ class ProductService {
             const response = await axios.get(`${API_BASE_URL}/products?_limit=${limit}`);
             return response.data;
         } catch (error) {
-            console.error('Error fetching limited products:', error);
             throw error;
         }
     }
@@ -69,7 +64,6 @@ class ProductService {
             const response = await axios.get(`${API_BASE_URL}/products?_sort=price&_order=${sortType}`);
             return response.data;
         } catch (error) {
-            console.error('Error fetching sorted products:', error);
             throw error;
         }
     }
