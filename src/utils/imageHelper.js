@@ -10,9 +10,8 @@ export function getImagePath(imagePath) {
     return imagePath;
   }
   
-  // Detect if we're on GitHub Pages by checking the pathname
-  // GitHub Pages URL format: https://username.github.io/repository-name/
-  const isGitHubPages = window.location.hostname.includes('github.io');
+  // Detect if we're on GitHub Pages by checking the hostname
+  const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
   
   if (isGitHubPages) {
     // Extract repository name from pathname
