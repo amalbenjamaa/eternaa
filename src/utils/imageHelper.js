@@ -10,14 +10,19 @@ export function getImagePath(imagePath) {
     return imagePath;
   }
   
+  // Check if we're in a browser environment
+  if (typeof window === 'undefined') {
+    return imagePath;
+  }
+  
   // Detect if we're on GitHub Pages by checking the hostname
-  const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+  const isGitHubPages = window.location.hostname.includes('github.io');
   
   if (isGitHubPages) {
     // Extract repository name from pathname
-    // pathname will be like "/eternaa/" or "/eternaa/products"
+    // pathname will be like "/eternaa/" or "/eternaa/products" or just "/"
     const pathParts = window.location.pathname.split('/').filter(Boolean);
-    const repoName = pathParts[0] || 'eternaa';
+    const repoName = pathParts.length > 0 ? pathParts[0] : 'eternaa';
     const baseUrl = `/${repoName}/`;
     
     // If image path already starts with the base URL, return as is
@@ -29,7 +34,8 @@ export function getImagePath(imagePath) {
     const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
     
     // Combine baseUrl and imagePath
-    return `${baseUrl}${cleanPath}`;
+    const fullPath = `${baseUrl}${cleanPath}`;
+    return fullPath;
   }
   
   // For local development, return path as is
