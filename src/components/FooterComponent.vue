@@ -11,7 +11,7 @@
               <div class="member-avatar-wrapper">
                 <div class="avatar-glow"></div>
                 <img
-                  src="/assets/amal.jpg"
+                  :src="getImagePath('/assets/amal.jpg')"
                   alt="Amal Benjamaa"
                   class="member-avatar"
                 />
@@ -27,7 +27,7 @@
               <div class="member-avatar-wrapper">
                 <div class="avatar-glow green"></div>
                 <img
-                  src="/assets/molka.jpeg"
+                  :src="getImagePath('/assets/molka.jpeg')"
                   alt="Team Member 2"
                   class="member-avatar"
                 />
@@ -43,7 +43,7 @@
               <div class="member-avatar-wrapper">
                 <div class="avatar-glow orange"></div>
                 <img
-                  src="/assets/refka.jpg"
+                  :src="getImagePath('/assets/refka.jpg')"
                   alt="Team Member 3"
                   class="member-avatar"
                 />
@@ -59,7 +59,7 @@
               <div class="member-avatar-wrapper">
                 <div class="avatar-glow pink"></div>
                 <img
-                  src="/assets/farah.jpg"
+                  :src="getImagePath('/assets/farah.jpg')"
                   alt="Team Member 4"
                   class="member-avatar"
                 />
@@ -130,8 +130,13 @@
 </template>
 
 <script>
+import { getImagePath } from '@/utils/imageHelper';
+
 export default {
-  name: 'AppFooter'
+  name: 'AppFooter',
+  methods: {
+    getImagePath
+  }
 }
 </script>
 
